@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="gl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Triangle.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;DS-12-04-B1&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ejercicio3</a> &gt; <span class="el_source">Triangle.java</span></div><h1>Triangle.java</h1><pre class="source lang-java linenums">package ejercicio3;
+
+/**
+* Clase  que  representa a un  triangulo. Se  trata  de una  clase  inmutable.
+*/
+public class Triangle {
+    private int side0;
+    private int side1;
+    private int side2;
+    private double semip;
+    
+<span class="nc" id="L12">    public  Triangle(int side0 , int side1 , int  side2) {</span>
+<span class="nc" id="L13">        this.side0 = side0;</span>
+<span class="nc" id="L14">        this.side1 = side1;</span>
+<span class="nc" id="L15">        this.side2 = side2;</span>
+<span class="nc" id="L16">}</span>
+    /**
+     * Constructor  de copia , construye  un  triangulo a partir  de otro
+     * @param t Triangulo a partir  del  cual se  construye  el nuevo
+     */
+<span class="nc" id="L21">    public  Triangle(Triangle t) {</span>
+<span class="nc" id="L22">        this.side0 = t.side0;</span>
+<span class="nc" id="L23">        this.side1 = t.side1;</span>
+<span class="nc" id="L24">        this.side2 = t.side2;</span>
+<span class="nc" id="L25">    }</span>
+    
+    /**
+     * Devuelve  un  array  con  los  lados  del  triangulo
+     * @return  Array  de 3 posiciones  con los  lados
+     */
+    //public  int[]  getSides () {
+      //  reurn
+    //}
+    /**
+     * Devuelve  el  perimetro  del  triangulo
+     * @return  Valor  double  que  representa  el  perimetro
+     */
+    public  double  perimeter () {
+<span class="nc" id="L39">        return (double) (side0 + side1 + side2);</span>
+    }
+    
+    /**
+     * Devuelve  el area  del  triangulo
+     * @return  Valor  double  que  representa  el area
+     */
+    public  double  area() {
+        
+<span class="nc" id="L48">        semip = perimeter()/2;</span>
+<span class="nc" id="L49">        return Math.pow((semip * (semip - side0) * (semip - side1) * (semip - side2)), (1/2));</span>
+    }
+
+    /**
+     * Decide  si el  triangulo  es  igual  al  objeto  que se le pasa  por  parametro
+     * Dos  triangulos  son  iguales  si  tienen  los  mismos  lados , independientemente
+     * del  orden
+     * @param  obj  Objeto
+     * @return  true si el  objeto  es un  triangulo  igual al  objeto  actual
+     */
+    //public  boolean  equals(Object  obj) {
+        //if (obj == null) then
+            //return false;
+        //}
+        //else 
+            
+    //}
+    
+    /**
+     * Devuelve  el  codigo  hash  del  objeto
+     * @return  Valor  entero  que  representa  el  codigo  hash
+     */
+    //public  int  hashCode () {
+    //}
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

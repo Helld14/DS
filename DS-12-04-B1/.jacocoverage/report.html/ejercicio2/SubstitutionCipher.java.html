@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="gl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SubstitutionCipher.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;DS-12-04-B1&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ejercicio2</a> &gt; <span class="el_source">SubstitutionCipher.java</span></div><h1>SubstitutionCipher.java</h1><pre class="source lang-java linenums">package ejercicio2;
+
+<span class="fc" id="L3">public class SubstitutionCipher {</span>
+    
+    private int suma(int c, int n) {
+    /* Suma en módulo 26: c es un número del 0 al 25 */
+<span class="fc" id="L7">        int total = c+n;</span>
+<span class="fc bfc" id="L8" title="All 2 branches covered.">        if (total &gt; 25)</span>
+<span class="fc" id="L9">            total -= 26;</span>
+<span class="fc" id="L10">        return (total);</span>
+    }
+    
+    private int resta(int c, int n) {
+    /* Resta en módulo 26: c es un número del 0 al 25 */
+<span class="fc" id="L15">        int total = c-n;</span>
+<span class="fc bfc" id="L16" title="All 2 branches covered.">        if (total &lt; 0)</span>
+<span class="fc" id="L17">            total += 26;</span>
+<span class="fc" id="L18">        return (total);</span>
+    }
+    
+    public String encode(int key, String text) {
+<span class="fc" id="L22">        StringBuilder text2 = new StringBuilder(); </span>
+        char c;
+        int i;
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        for (i=0; i&lt;text.length(); i++) {</span>
+<span class="fc" id="L26">            c = text.charAt(i); //devuelve el carácter de cierta posición</span>
+<span class="fc bfc" id="L27" title="All 4 branches covered.">            if (('A'&lt;=c) &amp;&amp; (c&lt;='Z')) </span>
+<span class="fc" id="L28">                text2.insert(i,(char)(suma(c-'A',key)+'A'));   </span>
+                /* Devuleve c más el desplazamiento 'key' en módulo 26, es 
+                   decir, después de la 'Z' vuelve a empezar por la 'A' */  
+<span class="fc bfc" id="L31" title="All 4 branches covered.">            else if (('a'&lt;=c) &amp;&amp; (c&lt;='z'))</span>
+<span class="fc" id="L32">                text2.insert(i,(char)(suma(c-'a',key)+'a')); </span>
+                /* Lo mismo para las minúsculas: recibe la diferencia entre 'a' 
+                   y 'c' (de 0 a 25), suma y devuelve un nuevo número de 0 a 25 
+                   que indica la posición de la nueva letra respecto a la 'a' */   
+<span class="fc" id="L36">            else {text2.insert(i,c); }</span>
+            /* Si es un carácter especial lo inserta sin más */
+       }
+<span class="fc" id="L39">        return(text2.toString());</span>
+    }
+    
+    public String decode(int key, String text) {
+<span class="fc" id="L43">        StringBuilder text2 = new StringBuilder(); </span>
+        char c;
+        int i;
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        for(i=0; i&lt;text.length(); i++) {</span>
+<span class="fc" id="L47">            c = text.charAt(i);</span>
+<span class="fc bfc" id="L48" title="All 4 branches covered.">            if (('A'&lt;=c) &amp;&amp; (c&lt;='Z')) //mayúsculas</span>
+<span class="fc" id="L49">                text2.insert(i,(char)(resta(c-'A',key)+'A')); //resta en módulo 26 </span>
+<span class="fc bfc" id="L50" title="All 4 branches covered.">            else if (('a'&lt;=c) &amp;&amp; (c&lt;='z')) //minúsculas</span>
+<span class="fc" id="L51">                text2.insert(i,(char)(resta(c-'a',key)+'a')); //resta en módulo 26     </span>
+<span class="fc" id="L52">            else text2.insert(i,c); //carácter especial</span>
+        }
+<span class="fc" id="L54">        return(text2.toString());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

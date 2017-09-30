@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="gl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Partido.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;DS-12-04-B1&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ejercicio4</a> &gt; <span class="el_source">Partido.java</span></div><h1>Partido.java</h1><pre class="source lang-java linenums">package ejercicio4;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
+/**
+ * Clase partido
+ */
+public class Partido {
+    
+    private final String ubicacion; /* Establecidos por el constructor */
+    private final LocalDate fecha;  /* e inmutables. */
+<span class="fc" id="L13">    private String local=&quot;&quot;, visitante=&quot;&quot;;</span>
+<span class="fc" id="L14">    private int tantosLocales=0, tantosVisitantes=0;</span>
+<span class="fc" id="L15">    private EstadoEnum actual = EstadoEnum.EN_ESPERA;      // Creamos clases enumerados SIEMPRE</span>
+    
+    /**
+     * Constructor
+     * 
+     * @param ubicacion                     String
+     * @param fecha                         String en formato aaaa-mm-dd
+     * @throws IllegalArgumentException     Si la fecha no puede convertirse a LocalDate
+     */
+<span class="fc" id="L24">    public Partido(String ubicacion, String fecha) throws IllegalArgumentException { </span>
+<span class="fc" id="L25">        actual = EstadoEnum.EN_ESPERA;</span>
+<span class="fc" id="L26">        this.ubicacion = ubicacion;</span>
+        try {
+<span class="fc" id="L28">            this.fecha = LocalDate.parse(fecha);</span>
+        }
+<span class="fc" id="L30">        catch (DateTimeParseException e) { </span>
+<span class="fc" id="L31">             throw new IllegalArgumentException(&quot;No se ha podido convertir la fecha&quot;,e); </span>
+<span class="fc" id="L32">        }    </span>
+<span class="fc" id="L33">    }</span>
+        
+    /**
+     * Dar nombre a ambos equipos
+     * 
+     * @param local         String
+     * @param visitante     String
+     * @throws Exception    Si se intenta realizar en el estado incorrecto
+     */
+    public void fijarEquipos(String local, String visitante) throws Exception {
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (actual == EstadoEnum.EN_ESPERA) {</span>
+<span class="fc" id="L44">            this.local = local;</span>
+<span class="fc" id="L45">            this.visitante = visitante;</span>
+<span class="fc" id="L46">            actual = EstadoEnum.NO_JUGADO;</span>
+        }
+<span class="fc" id="L48">        else throw new Exception(&quot;fijarEquipos debe realizarse en estado EN_ESPERA&quot;);</span>
+<span class="fc" id="L49">    }    </span>
+    
+    /**
+     * Comenzar partido
+     * 
+     * @throws Exception    Si se intenta realizar en el estado incorrecto
+     */
+    public void comenzar() throws Exception {
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (actual == EstadoEnum.NO_JUGADO)</span>
+<span class="fc" id="L58">            actual = EstadoEnum.EN_JUEGO;</span>
+<span class="fc" id="L59">        else throw new Exception(&quot;comenzar debe realizarse en estado NO_JUGADO&quot;); </span>
+<span class="fc" id="L60">    }   </span>
+    
+    /**
+     * Sumar 1 tanto al equipo local
+     * 
+     * @throws Exception    Si se intenta realizar en el estado incorrecto
+     */
+    public void tantoLocal() throws Exception {
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        if (actual == EstadoEnum.EN_JUEGO)</span>
+<span class="fc" id="L69">            tantosLocales++;</span>
+<span class="fc" id="L70">        else throw new Exception(&quot;tantoLocal debe realizarse en estado EN_JUEGO&quot;);</span>
+<span class="fc" id="L71">    }</span>
+    
+    /**
+     * Sumar 1 tanto al equipo visitante
+     * 
+     * @throws Exception    Si se intenta realizar en el estado incorrecto
+     */
+    public void tantoVisitante() throws Exception {
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        if (actual == EstadoEnum.EN_JUEGO)</span>
+<span class="fc" id="L80">            tantosVisitantes++;</span>
+<span class="fc" id="L81">        else throw new Exception(&quot;tantoVisitante debe realizarse en estado EN_JUEGO&quot;);</span>
+<span class="fc" id="L82">    }    </span>
+    
+    /**
+     * Terminar el partido
+     * 
+     * @throws Exception    Si se intenta realizar en el estado incorrecto
+     */
+    public void terminar() throws Exception {
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        if (actual == EstadoEnum.EN_JUEGO)</span>
+<span class="fc" id="L91">            actual = EstadoEnum.FINALIZADO;</span>
+<span class="fc" id="L92">        else throw new Exception(&quot;terminar debe realizarse en estado EN_JUEGO&quot;);</span>
+<span class="fc" id="L93">    }   </span>
+    
+    /**
+     * Devolver nombre del ganador
+     * 
+     * @return              String con el nombre del ganador o &quot;Empate&quot;
+     * @throws Exception    Si se intenta realizar en el estado incorrecto
+     */
+    public String ganador() throws Exception {
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        if (actual == EstadoEnum.FINALIZADO) {</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">            if (tantosLocales &gt; tantosVisitantes)</span>
+<span class="fc" id="L104">                return(local);</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">            else if (tantosLocales &lt; tantosVisitantes)</span>
+<span class="fc" id="L106">                return(visitante);</span>
+<span class="fc" id="L107">            else return(&quot;Empate&quot;);</span>
+        }
+<span class="fc" id="L109">        else throw new Exception(&quot;ganador debe realizarse en estado TERMINADO&quot;);</span>
+    }
+    
+    /**
+     * Devolver datos del partido
+     * 
+     * @return 
+     */
+    public String datos() { 
+<span class="pc bfc" id="L118" title="All 4 branches covered.">        switch (actual) {</span>
+<span class="fc" id="L119">            case EN_ESPERA  :   return( &quot;Ubicación: &quot;+ubicacion</span>
+<span class="fc" id="L120">                                        +&quot;\nFecha: &quot;+String.valueOf(fecha)</span>
+                                        +&quot;\nEl partido está en espera, aún no se han concretado los equipos&quot;
+                                );
+<span class="fc" id="L123">            case NO_JUGADO  :   return( &quot;Ubicación: &quot;+ubicacion</span>
+<span class="fc" id="L124">                                        +&quot;\nFecha: &quot;+String.valueOf(fecha)</span>
+                                        +&quot;\nEl partido aún no se ha jugado&quot;
+                                        +&quot;\nEquipo local: &quot;+local
+                                        +&quot;\nEquipo visitante: &quot;+visitante  
+                                );
+<span class="fc" id="L129">            case EN_JUEGO   :   return( &quot;Ubicación: &quot;+ubicacion</span>
+<span class="fc" id="L130">                                        +&quot;\nFecha: &quot;+String.valueOf(fecha)</span>
+                                        +&quot;\nEl partido está en juego&quot;
+                                        +&quot;\nEquipo local: &quot;+local
+                                        +&quot;\nTantos locales: &quot;+tantosLocales
+                                        +&quot;\nEquipo visitante: &quot;+visitante
+                                        +&quot;\nTantos visitantes: &quot;+tantosVisitantes
+                                );
+<span class="fc" id="L137">            default :           return( &quot;Ubicación: &quot;+ubicacion                             //ATENCIÓN: ESTE default DEBERIA SER UN case: FINALIZADO</span>
+<span class="fc" id="L138">                                        +&quot;\nFecha: &quot;+String.valueOf(fecha)                  //PERO EL TEST FALLARÍA YA QUE NUNCA ENTRARÍA EN EL default</span>
+                                        +&quot;\nEl partido ha finalizado&quot;
+                                        +&quot;\nEquipo local: &quot;+local
+                                        +&quot;\nTantos locales: &quot;+tantosLocales
+                                        +&quot;\nEquipo visitante: &quot;+visitante
+                                        +&quot;\nTantos visitantes: &quot;+tantosVisitantes
+                                );
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>
